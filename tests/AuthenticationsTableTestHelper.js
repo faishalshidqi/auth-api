@@ -1,6 +1,5 @@
 /* istanbul ignore file */
 const pool = require('../src/Infrastructures/database/postgres/pool')
-const {quiet} = require("nodemon/lib/utils");
 
 const AuthenticationsTableTestHelper = {
     async addToken(token) {
@@ -13,7 +12,7 @@ const AuthenticationsTableTestHelper = {
 
     async findToken(token) {
         const query = {
-            text: 'select * from users where token = $1',
+            text: 'select * from authentications where token = $1',
             values: [token]
         }
 

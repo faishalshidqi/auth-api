@@ -1,8 +1,10 @@
 require('dotenv').config()
 const Hapi = require('@hapi/hapi')
-const users = require('../../Interfaces/http/api/users')
 const DomainErrorTranslator = require('../../Commons/exceptions/DomainErrorTranslator')
 const ClientError = require('../../Commons/exceptions/ClientError')
+const users = require('../../Interfaces/http/api/users')
+const authentications = require('../../Interfaces/http/api/authentications')
+
 const createServer = async (container) => {
 	const server = Hapi.server({
 		host: process.env.HOST,
@@ -12,6 +14,10 @@ const createServer = async (container) => {
 	await server.register([
 		{
 			plugin: users,
+			options: {container}
+		},
+		{
+			plugin: authentications,
 			options: {container}
 		}
 	])
@@ -43,7 +49,6 @@ const createServer = async (container) => {
 		}
 		return h.continue
 	})
-	//console.log(`Server is running on ${server.info.uri}`)
 	return server
 }
 

@@ -47,6 +47,18 @@ describe('a RegisterUser entity', () => {
 		expect(() => new RegisterUser(payload)).toThrowError('REGISTER_USER.USERNAME_CONTAINS_RESTRICTED_CHAR')
 	})
 
+	it('should not throw error when username contains underscore character', () => {
+		// Arrange
+		const payload = {
+			username: 'dico_ding',
+			fullname: 'dicoding',
+			password: 'abc'
+		}
+
+		// Action and Assert
+		expect(() => new RegisterUser(payload)).not.toThrowError('REGISTER_USER.USERNAME_CONTAINS_RESTRICTED_CHAR')
+	})
+
 	it('should create registerUser object correctly', () => {
 		// Arrange
 		const payload = {
